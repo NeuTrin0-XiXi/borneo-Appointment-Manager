@@ -35,20 +35,21 @@ interface props {
 }
 const BookAMeet: React.FC<props> = ({ open, closeModal, scheduleMeet, selectedSlot, modalForEdit, allSlots }) => {
 
+    // variables for form control
     const [startTime, setStartTime] = useState<number>(selectedSlot.start.getTime());
     const [endTime, setEndTime] = useState<number>(selectedSlot.end.getTime());
     const [selectedDate, setSelectedDate] = useState<number>(getDateStart(selectedSlot.start))
 
+    // list of days available in the form 
     const [getWeekDays,] = useState(getCurrentWeekDays(selectedSlot.start, allSlots))
 
-
+    // restriction of timeslots within a given date
     const [bookingLimits, setBookingLimits] = useState(getBookingLimits(new Date(selectedDate)))
     useEffect(() => {
         setBookingLimits(getBookingLimits(new Date(selectedDate)))
     }, [selectedDate])
 
-
-
+    // Options for start time of open slots - based on already booked ones 
     const [startTimeOptions, setStartTimeOptions] = useState<number[]>(generateStartTimeOptions(bookingLimits.bookingStart, bookingLimits.bookingEnd, allSlots))
 
     useEffect(() => {
@@ -56,6 +57,7 @@ const BookAMeet: React.FC<props> = ({ open, closeModal, scheduleMeet, selectedSl
     }, [bookingLimits, allSlots])
 
 
+    // Options for end time of open slots - based on start time and aleady booked slots
     const [endTimeOptions, setEndTimeOptions] = useState<number[]>(generateEndTimeOptions(new Date(startTime), bookingLimits.bookingEnd, allSlots))
 
     useEffect(() => {
@@ -63,6 +65,7 @@ const BookAMeet: React.FC<props> = ({ open, closeModal, scheduleMeet, selectedSl
     }, [startTime, bookingLimits, allSlots])
 
 
+    // making sure that dates stay within avaible timestamps - needs better checks
     useEffect(() => {
         if (!startTimeOptions.includes(startTime))
             setStartTime(startTimeOptions[0])

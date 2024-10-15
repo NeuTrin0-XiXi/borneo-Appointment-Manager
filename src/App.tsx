@@ -17,11 +17,14 @@ const App: React.FC = () => {
 
   return (
     <div>
+      {/* Non-navigating page switch */}
       {
         user ?
           <AppointmentCalendar user={user} />
           : <LoginPage loginUser={loginUser} />
       }
+
+      {/*Container for notification effects  */}
       <ToastContainer
         position='top-center'
         autoClose={3000}

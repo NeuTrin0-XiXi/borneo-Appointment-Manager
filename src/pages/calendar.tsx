@@ -16,6 +16,8 @@ import { notifyBooking } from '../components/tsx_handlers'
 
 const localizer = momentLocalizer(moment)
 const today = new Date()
+
+// global declaration of Slot Class for better abstraction
 declare global {
   interface Slot extends Event {
     slotID: string
@@ -26,9 +28,11 @@ declare global {
   }
 }
 
+// type reference for passable props
 interface props {
   user: { email: string, name: string }
 }
+
 const { bookingStart, bookingEnd } = getBookingLimits(today)
 
 const AppointmentCalendar: React.FC<props> = ({ user }) => {
@@ -36,6 +40,8 @@ const AppointmentCalendar: React.FC<props> = ({ user }) => {
   const [date, setDate] = useState<Date>(new Date());
   const [modalForEdit, setModalForEdit] = useState<boolean>(false)
   const [selectedSlot, setSelectedSlot] = useState<Slot>(slotForDate(new Date(), user.email))
+
+  // to manually trigger slot refresh
   const [refreshCount, refresh] = useState<number>(0)
 
 
@@ -60,7 +66,7 @@ const AppointmentCalendar: React.FC<props> = ({ user }) => {
     refresh(prev => prev + 1)
   }
 
-
+// dummy data - represents slots booked by you or others
   const [events, setEvents] = useState<Slot[]>([
     {
       slotID: '1',
@@ -86,7 +92,7 @@ const AppointmentCalendar: React.FC<props> = ({ user }) => {
   ]);
 
 
-
+// editing an already booked slot - if posted by you
   const handleEditSlot = (slot: Slot): any => {
     if (!slot.isEditable) return
 
@@ -98,7 +104,7 @@ const AppointmentCalendar: React.FC<props> = ({ user }) => {
     setModalOpen(true)
   }
 
-
+// controller for drag selection of slots
   const handleSlotSelection = ({ start, end }: { start: Date, end: Date }) => {
     if (view === Views.MONTH) {
       setDate(start)
@@ -132,7 +138,8 @@ const AppointmentCalendar: React.FC<props> = ({ user }) => {
 
   }
 
-
+// slot addition/editing/deletion handler - changes data on the frontend - later, the same could be extended 
+// to include passage of information to the database using API endpoints
   const scheduleMeet = (slot: Slot, mode: 'delete' | 'edit' | 'add') => {
     switch (mode) {
       case 'delete':

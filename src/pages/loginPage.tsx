@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { TextField, Button, Box, Typography } from '@mui/material';
 
+// schema for user information which is taken prior viewing the schedules
 interface props {
     loginUser: (user: string, name: string) => void
 }

@@ -1,6 +1,7 @@
 const today = new Date()
 today.setHours(0, 0, 0, 0)
 
+// To get the midnight of week start date for any given date
 export function getWeekStartDate(date: Date): Date {
     const weekStart = new Date(date);
     const dayOfWeek = weekStart.getDay();
@@ -9,12 +10,15 @@ export function getWeekStartDate(date: Date): Date {
     weekStart.setHours(0, 0, 0, 0);
     return weekStart;
 }
+
+// to get the midnight-time of any give date
 export function getDateStart(date: Date): number {
     const start = new Date(date)
     start.setHours(0, 0, 0, 0)
     return start.getTime()
 }
 
+// signature overloaded functions for same functionality but with varying needs
 export function isOverlapping(events: Slot[], start: Date, end: Date, flag: boolean): boolean;
 export function isOverlapping(events: Slot[], start: Date, end: Date): boolean;
 export function isOverlapping(events: Slot[], start: Date,): boolean;
@@ -43,6 +47,7 @@ export function isOverlapping(events: Slot[], start: Date, end?: Date, date?: bo
 
 }
 
+// adds given number of dates to any given date-stamp (returns a new date value, doesn't change the input date)
 function addDays(date: Date, i: number): Date {
     const newDate = new Date(date);
     newDate.setDate(newDate.getDate() + i)
@@ -76,6 +81,9 @@ function addDays(date: Date, i: number): Date {
 //     return narray
 // }
 
+
+// To generate days of the week (midnight-timestamps) which can be used to represent the dates of slots
+// user is restricted to book only dates following the present date
 export function getCurrentWeekDays(selectedDate: Date, allSlots: Slot[]): number[] {
     const selectedWeek = getWeekStartDate(selectedDate)
     if (weekFlag(selectedDate) === 'current') {
@@ -89,12 +97,14 @@ export function getCurrentWeekDays(selectedDate: Date, allSlots: Slot[]): number
     return Array.from({ length: 7 }, (_, i) => addDays(selectedWeek, i).getTime());
 };
 
+// adds given amount of minutes to a given date value
 function addMinutes(time: Date, i: number): Date {
     const newTime = new Date(time);
     newTime.setTime(newTime.getTime() + i * 1e3 * 60)
     return newTime
 }
 
+// returns a start-end times for any given date: 10:00AM to 06:00PM
 export function getBookingLimits(date: Date): { bookingStart: Date, bookingEnd: Date } {
     const st = new Date(date)
     const nd = new Date(date)
@@ -102,6 +112,9 @@ export function getBookingLimits(date: Date): { bookingStart: Date, bookingEnd: 
     nd.setHours(18, 0, 0, 0)
     return ({ 'bookingStart': st, 'bookingEnd': nd })
 }
+
+// Generates open timestamps for slots on a given day, utilising information about booked slots
+// Utilises isOverlapping function to check if a given timestamps is clouded by a booked-slot
 export function generateStartTimeOptions(min: Date, max: Date, allSlots: Slot[]): number[] {
     const options: number[] = [];
     let current = min;
@@ -113,6 +126,8 @@ export function generateStartTimeOptions(min: Date, max: Date, allSlots: Slot[])
     return options;
 };
 
+// Similar timestamp generator for slot end times - value calculation depends upon already calculated
+// start time, booked-slots and the booking window(10:00 - 18:00) on the given day
 export function generateEndTimeOptions(min: Date, max: Date, allSlots: Slot[]): number[] {
     const options: number[] = [];
     let current = addMinutes(min, 30);
@@ -124,6 +139,9 @@ export function generateEndTimeOptions(min: Date, max: Date, allSlots: Slot[]): 
     return options;
 };
 
+// creates a dummy to-be-edited slot object for a given date
+// It is used to make sure of the slot state variable in the app
+// slot returned by this function is used as a clean-up value 
 export function slotForDate(date: Date, email: string): Slot {
     const { bookingStart, bookingEnd } = getBookingLimits(date)
     return {
@@ -134,6 +152,8 @@ export function slotForDate(date: Date, email: string): Slot {
         isEditable: false
     }
 }
+
+// flags a given date to be falling behind/ahead/in the current wek
 export function weekFlag(givenDate: Date): (boolean | 'current') {
     const currentWeekStart = getWeekStartDate(today)
     const givenWeekStart = getWeekStartDate(givenDate)
@@ -142,6 +162,7 @@ export function weekFlag(givenDate: Date): (boolean | 'current') {
     return !(givenWeekStart < currentWeekStart)
 };
 
+// styling props for slot on the calendar
 export function slotStyle(slot: Slot) {
     const style = {
         backgroundColor: slot.isEditable ? 'purple' : 'white',
@@ -154,6 +175,8 @@ export function slotStyle(slot: Slot) {
     return { style }
 }
 
+// to generate random unique soldID (identifiers) for slots
+// used for editing/deletion purposes
 export function generateRandomString(length: number): string {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
@@ -163,6 +186,8 @@ export function generateRandomString(length: number): string {
     }
     return result;
 }
+
+// WIP - generic approach towards evaluating empty slots  
 
 // export function generateSlotsInTheWeek(date: Date, bookedSlots: Slot[]) {
 //     let today = new Date()
