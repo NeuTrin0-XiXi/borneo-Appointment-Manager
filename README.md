@@ -9,7 +9,9 @@
 2. Open a terminal in the project folder and run:
    ```bash
    npm i && npm run build
-
+3. After the previous process is finished, run:
+   ```bash
+   npx - y serve -s build
 
 ### Future Scope and WIP Features:
 - Developing an array-based algorithm to evaluate free slots with O(n) complexity.
