@@ -1,0 +1,141 @@
+/* Calendar Styles */
+.space-time-calendar {
+    padding: 40px;
+    background-image: 'https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg';
+    height: '100%' !important
+
+}
+
+/* Dark theme for calendar */
+.rbc-calendar {
+    /* background-color: white; Dark box color */
+    background-color: black;
+    /* Dark box color */
+    color: #ffffff;
+    /* White text for contrast */
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+/* Dim the background color of disabled dates */
+.disabled-date {
+    opacity: 0.4;
+    background-color: rgba(112, 112, 112, 0.692);
+    /* Dim effect */
+    pointer-events: none;
+    /* Prevent clicks on disabled dates */
+}
+
+/* Style the header */
+.rbc-toolbar {
+    background: black;
+    /* Semi-transparent white for toolbar */
+    border: none;
+    /* Remove border */
+    color: #ffffff;
+    /* White text */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 2px;
+}
+
+.rbc-toolbar button {
+    margin: 0 5px;
+    /* Spacing between buttons */
+    background-color: rgba(255, 255, 255, 0.08);
+    /* Dark background for buttons */
+    color: white;
+    /* White text */
+    padding: 10px 15px;
+    /* Padding for the buttons */
+    border: none;
+    /* No border */
+    border-radius: 5px;
+    /* Rounded corners */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    /* Transition for hover effects */
+}
+
+/* Button hover effect */
+.rbc-toolbar button:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    /* Darker blue on hover */
+    color: white;
+    transform: scale(1.05);
+    /* Slightly increase size on hover */
+}
+
+
+/* Customize button styles */
+.rbc-btn {
+    background-color: #007bff;
+    /* Bootstrap primary button color */
+    border: none;
+    /* Remove border */
+    color: white;
+    /* White text */
+    padding: 10px 15px;
+    /* Padding for the button */
+    border-radius: 5px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Pointer cursor */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    /* Transition for hover effects */
+}
+
+/* Button hover effect */
+.rbc-btn:hover {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+    transform: scale(1.05);
+    /* Slightly increase size on hover */
+}
+
+/* Customize hover effect for date cells */
+
+
+/* Week raise effect */
+.rbc-month-row {
+    background-color: rgba(0, 0, 0);
+    /* Light hover effect */
+    transition: transform 0.3s;
+    /* Transition for raise effect and border */
+    /* border-radius: 5px; */
+}
+
+.rbc-month-row:hover {
+    transform: scale(1.02);
+    /* Raise effect on hover */
+    background-color: rgba(0, 0, 0);
+    /* Light hover effect */
+}
+
+.rbc-header {
+    background-color: black;
+    /* Dark background for header */
+    color: white;
+    /* Black text for weekday tabs */
+    font-weight: bold;
+    /* Make the text bold for better visibility */
+    border-radius: 5px 5px 0px 0px;
+}
+
+.rbc-week-row {
+    background-color: black;
+    /* Darker background for week view */
+}
+
+/* Remove horizontal grid lines in week view */
+.rbc-timeslot-group {
+    border: none;
+    /* Remove borders */
+    background-color: black;
+}
+.disabled-date{
+    background-color: rgb(0, 0, 0,0.5);
+}
+
+.rbc-day-slot .rbc-events-container{
+    margin:'0px' 
+}
