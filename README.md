@@ -3,6 +3,7 @@
 ### Schedule Your Appointment with Herr Albert Einstein
 - Features drag-and-select and a dropdown selection of slots from the calendar interface.
 - Users can edit, delete, and add new slots.
+- Double click to edit or delete a slot
 
 ### How to Run:
 1. Ensure Node.js (latest version recommended) is installed.
